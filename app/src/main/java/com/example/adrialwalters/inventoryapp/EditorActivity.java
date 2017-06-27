@@ -328,8 +328,6 @@ public class EditorActivity extends AppCompatActivity implements
                     NavUtils.navigateUpFromSameTask(EditorActivity.this);
                     return true;
                 }
-                showUnsavedChangesDialog();
-                return true;
 
             // Otherwise if there are unsaved changes, setup a dialog to warn the user.
             // Create a click listener to handle the user confirming that
@@ -450,7 +448,6 @@ public class EditorActivity extends AppCompatActivity implements
 
     }
 
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
         // The ACTION_OPEN_DOCUMENT intent was sent with the request code READ_REQUEST_CODE.
@@ -469,8 +466,6 @@ public class EditorActivity extends AppCompatActivity implements
             }
         }
     }
-
-
 
     /**
      * Create email to order more products
@@ -530,9 +525,10 @@ public class EditorActivity extends AppCompatActivity implements
         intent.setType("image/*");
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
     }
-    /*
-   * Gets a bitmap from the given URI
-   * */
+
+    /**
+     *     Gets a bitmap from the given URI
+     */
     private Bitmap getBitmapFromUri(Uri uri) {
 
         if (uri == null || uri.toString().isEmpty())
@@ -584,28 +580,32 @@ public class EditorActivity extends AppCompatActivity implements
     }
 
     /**
-     * If editing, dialog appears to allow user to "Keep Editing" or "Discard" changes
-     * if user clicks on either the Up or Back button
+     * Show a dialog that warns the user there are unsaved changes that will be lost
+     * if they continue leaving the editor.
+     *
+     * @param discardButtonClickListener is the click listener for what to do when
+     *                                   the user confirms they want to discard their changes
      */
-    private void showUnsavedChangesDialog() {
-        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-        alertBuilder.setMessage(R.string.unsaved_changes_dialog_msg).
-                setPositiveButton(R.string.discard, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        finish();
-                    }
-                }).
-                setNegativeButton(R.string.keep_editing, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if (dialogInterface != null) {
-                            dialogInterface.dismiss();
-                        }
-                    }
-                });
+    private void showUnsavedChangesDialog(
+            DialogInterface.OnClickListener discardButtonClickListener) {
+        // Create an AlertDialog.Builder and set the message, and click listeners
+        // for the positive and negative buttons on the dialog.
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.unsaved_changes_dialog_msg);
+        builder.setPositiveButton(R.string.discard, discardButtonClickListener);
+        builder.setNegativeButton(R.string.keep_editing, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked the "Keep editing" button, so dismiss the dialog
+                // and continue editing the pet.
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
         // Create and show the AlertDialog
-        alertBuilder.create().show();
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     /**
