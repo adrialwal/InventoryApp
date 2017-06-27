@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/activity_margin">
+
+    <!-- Container for brand, model and price -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_item_brand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/product_category"
+            android:textAlignment="center"
+            android:textAppearance="?android:textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/text_item_model"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/model_category"
+            android:textAlignment="center"
+            android:textAppearance="?android:textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/text_item_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/price_category"
+            android:textAlignment="center"
+            android:textAppearance="?android:textAppearanceMedium" />
+    </LinearLayout>
+
+    <!-- Container for quantity -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_item_quantity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            tools:text="20"/>
+    </LinearLayout>
+
+    <!-- Container for sale and restock button -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/button_list_sale"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sale_button"
+            style="@style/Widget.AppCompat.Button.Borderless" />
+
+        <Button
+            android:id="@+id/button_list_restock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/restock_button"
+            style="@style/Widget.AppCompat.Button.Borderless" />
+
+    </LinearLayout>
+</LinearLayout>

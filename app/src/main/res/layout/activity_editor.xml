@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/activity_margin"
+    tools:context=".EditorActivity">
+
+    <!-- Brand category -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/text_editor_category_brand"
+            android:text="@string/product_category"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="@style/CategoryStyle"/>
+
+        <EditText
+            android:id="@+id/edit_editor_field_brand"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:hint="@string/editor_required_hint"
+            android:inputType="textCapWords"
+            style="@style/EditorFieldStyle"/>
+    </LinearLayout>
+
+    <!-- Model category -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/text_editor_category_model"
+            android:text="@string/model_category"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="@style/CategoryStyle"/>
+
+        <EditText
+            android:id="@+id/edit_editor_field_model"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:hint="@string/editor_required_hint"
+            android:inputType="textCapWords"
+            style="@style/EditorFieldStyle"/>
+    </LinearLayout>
+
+    <!-- Price category -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/text_editor_category_price"
+            android:text="@string/price_category"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="@style/CategoryStyle"/>
+
+        <EditText
+            android:id="@+id/edit_editor_field_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:hint="@string/editor_required_hint"
+            android:inputType="numberSigned"
+            style="@style/EditorFieldStyle"/>
+    </LinearLayout>
+
+    <!-- Quantity category -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/text_editor_category_quantity"
+            style="@style/CategoryStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/quantity_category" />
+
+        <EditText
+            android:id="@+id/edit_editor_field_quantity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:hint="@string/editor_required_hint"
+            android:inputType="number"
+            style="@style/EditorFieldStyle"/>
+    </LinearLayout>
+
+    <!-- Supplier category -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/text_editor_category_supplier"
+            android:text="@string/supplier_category"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="@style/CategoryStyle"/>
+
+        <EditText
+            android:id="@+id/edit_editor_field_supplier"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:hint="@string/editor_required_hint"
+            android:inputType="textCapWords"
+            style="@style/EditorFieldStyle"/>
+    </LinearLayout>
+
+    <!-- Contact Supplier category -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/text_editor_category_email"
+            android:text="@string/contact_category"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="@style/CategoryStyle"/>
+
+        <EditText
+            android:id="@+id/edit_editor_field_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:hint="@string/editor_required_hint"
+            android:inputType="textEmailAddress"
+            style="@style/EditorFieldStyle"/>
+    </LinearLayout>
+
+    <!-- Sale, restock and order button -->
+    <LinearLayout
+        style="@style/ButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/sale_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sale_button" />
+
+        <Button
+            android:id="@+id/restock_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/restock_button" />
+
+    </LinearLayout>
+
+    <!-- FAB to add product image -->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/image_fab"
+        android:layout_width="82dp"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:srcCompat="@android:drawable/ic_menu_gallery" />
+
+    <!-- Product image -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        style="@style/ButtonStyle"
+        android:padding="@dimen/activity_margin">
+
+        <ImageView
+            android:id="@+id/product_image"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center" />
+
+    </LinearLayout>
+</LinearLayout>
