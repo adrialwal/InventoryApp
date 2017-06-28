@@ -57,7 +57,6 @@ public class InventoryCursorAdapter extends CursorAdapter{
         TextView priceTextView = (TextView) view.findViewById(R.id.text_item_price);
         final TextView quantityTextView = (TextView) view.findViewById(R.id.text_item_quantity);
         Button saleButton = (Button) view.findViewById(R.id.button_list_sale);
-        Button restockButton = (Button) view.findViewById(R.id.button_list_restock);
 
         // Get the data from cursor
         String productBrand = cursor.getString(cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_BRAND));
@@ -71,7 +70,7 @@ public class InventoryCursorAdapter extends CursorAdapter{
         priceTextView.setText(String.format("%s%s",
                 context.getResources().getText(R.string.dollar_sign), productPrice));
         quantityTextView.setText(String.format("%s: %s",
-                context.getResources().getText(R.string.stock, productQuantity),quantityTextView));
+                context.getResources().getText(R.string.stock, productQuantity), productQuantity));
 
         // Variables needed to decrease inventory
         final int rowID = cursor.getInt(cursor.getColumnIndex(ProductEntry._ID));
