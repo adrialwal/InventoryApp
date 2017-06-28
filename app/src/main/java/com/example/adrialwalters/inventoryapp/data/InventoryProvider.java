@@ -8,8 +8,6 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.example.adrialwalters.inventoryapp.data.InventoryContract.ProductEntry;
@@ -72,10 +70,9 @@ public class InventoryProvider extends ContentProvider {
     /**
      * Perform the query for the given URI. Use the given projection, selection, selection arguments, and sort order.
      */
-    @Nullable
     @Override
-    public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection,
-                        @Nullable String[] selectionArgs, @Nullable String sortOrder) {
+    public Cursor query(Uri uri, String[] projection, String selection,
+                        String[] selectionArgs, String sortOrder) {
         // Get readable database
         SQLiteDatabase database = mDbHelper.getReadableDatabase();
 
@@ -83,7 +80,8 @@ public class InventoryProvider extends ContentProvider {
         Cursor cursor;
 
         // Find if the URI matcher can match the URI to a specific code
-        switch (sUriMatcher.match(uri)) {
+        int match = sUriMatcher.match(uri);
+        switch (match) {
             case PRODUCTS:
                 cursor = database.query(ProductEntry.TABLE_NAME, projection, selection, selectionArgs,
                         null, null, sortOrder);
@@ -107,9 +105,8 @@ public class InventoryProvider extends ContentProvider {
     /**
      * Returns the MIME type of data for the content URI.
      */
-    @Nullable
     @Override
-    public String getType(@NonNull Uri uri) {
+    public String getType(Uri uri) {
         int match = sUriMatcher.match(uri);
 
         switch (match) {
@@ -125,11 +122,10 @@ public class InventoryProvider extends ContentProvider {
     /**
      * Insert new data into the provider with the given ContentValues.
      */
-    @Nullable
     @Override
-    public Uri insert(@NonNull Uri uri, @Nullable ContentValues contentValues) {
-
-        switch (sUriMatcher.match(uri)) {
+    public Uri insert(Uri uri, ContentValues contentValues) {
+        final int match = sUriMatcher.match(uri);
+        switch (match) {
             // Insert operation will always be implemented on the products table as a whole
             // not on a specific product
             case PRODUCTS:
@@ -143,8 +139,7 @@ public class InventoryProvider extends ContentProvider {
      * Helper method to insert new data into the provider with the given ContentValues.
      */
     private Uri insertProduct(Uri uri, ContentValues contentValues) {
-        /* Check values before inserting */
-        // Check if model == null
+        // Check that the name is not null
         String productBrand = contentValues.getAsString(ProductEntry.COLUMN_PRODUCT_BRAND);
         if (productBrand == null) {
             throw new IllegalArgumentException("Products brand required");
@@ -169,17 +164,18 @@ public class InventoryProvider extends ContentProvider {
             throw new IllegalArgumentException("Quantity must be greater than 0");
         }
 
-        // Check if supplier name == null
+        // Check that the name is not null
         String supplierName = contentValues.getAsString(ProductEntry.COLUMN_SUPPLIER_NAME);
         if (supplierName == null) {
             throw new IllegalArgumentException("Supplier name required");
         }
 
+        // Get writeable database
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
 
         // Row ID of the newly inserted row, or -1 if an error occurred
         long rowId = database.insert(ProductEntry.TABLE_NAME, null, contentValues);
-
+        // If the ID is -1, then the insertion failed. Log an error and return null.
         if (rowId == -1) {
             Log.e(TAG, "Failed to insert row for " + uri);
             return null;
@@ -196,7 +192,7 @@ public class InventoryProvider extends ContentProvider {
      * Delete the data at the given selection and selection arguments.
      */
     @Override
-    public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
+    public int delete(Uri uri, String selection, String[] selectionArgs) {
 
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
         int rowsDeleted;
@@ -228,8 +224,8 @@ public class InventoryProvider extends ContentProvider {
      * Updates the data at the given selection and selection arguments, with the new ContentValues.
      */
     @Override
-    public int update(@NonNull Uri uri, @Nullable ContentValues contentValues,
-                      @Nullable String selection, @Nullable String[] selectionArgs) {
+    public int update(Uri uri, ContentValues contentValues,
+                      String selection, String[] selectionArgs) {
         switch (sUriMatcher.match(uri)) {
             // Update all entries that match the selection and selection args
             case PRODUCTS:
@@ -244,10 +240,10 @@ public class InventoryProvider extends ContentProvider {
         }
     }
 
-    private int updateProduct(@NonNull Uri uri, @Nullable ContentValues contentValues,
-                            @Nullable String selection, @Nullable String[] selectionArgs) {
-        /* Check values before updating */
-        // If contentValues is empty, return 0
+    private int updateProduct(Uri uri, ContentValues contentValues,
+                              String selection, String[] selectionArgs) {
+        // If the {@link ProductEntry#COLUMN_PRODUCT_Brand} key is present,
+        // check that the name value is not null.
         if (contentValues.size() == 0) {
             return 0;
         }
