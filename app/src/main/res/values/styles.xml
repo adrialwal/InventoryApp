@@ -39,10 +39,4 @@
         <item name="android:paddingLeft">@dimen/activity_margin</item>
         <item name="android:paddingRight">@dimen/activity_margin</item>
     </style>
-
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
 </resources>
